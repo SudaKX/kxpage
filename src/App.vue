@@ -1,6 +1,24 @@
 <script setup lang="ts">
+import router from './router';
 import { RouterView } from 'vue-router'
+import { useCurrentIndexStore } from './stores/currentIndex';
 import NavigationBar from './components/NavigationBar.vue';
+
+const {getPath, adjustIndex} = useCurrentIndexStore()
+let wheelBlocked = false
+
+document.addEventListener('wheel', (ev) => {
+  if (!wheelBlocked) {
+    const step = ev.deltaY > 0 ? 1 : -1
+    if (adjustIndex(step)) {
+      wheelBlocked = true
+      router.replace(getPath())
+      setTimeout(() => {
+        wheelBlocked = false
+      }, 1500);
+    }
+  }
+})
 
 </script>
 

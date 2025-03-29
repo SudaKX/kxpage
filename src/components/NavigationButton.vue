@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RouterLink :to="props.path" class="link">
+    <RouterLink :to="props.path" class="link" :replace="true">
       <div class="title">{{ props.title }}</div>
       <div class="subtitle">{{ props.subtitle }}</div>
     </RouterLink>
@@ -23,7 +23,6 @@ const props = defineProps<{
 
 .link {
   display: block;
-  background-color: black;
   margin-right: 50px;
 
   text-decoration: none;

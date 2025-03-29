@@ -58,8 +58,8 @@ router.afterEach((to, from) => {
     if (value.route === from.path) return true
     return false
   })
-  const { set } = useCurrentIndexStore()
-  set(toIndex)
+  const { setIndex } = useCurrentIndexStore()
+  setIndex(toIndex)
   to.meta.transition = toIndex > fromIndex ? 'forward' : 'rewind'
 })
 
