@@ -32,8 +32,8 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
   background-color: transparent;
 
   transition:
-    scale 2.0s ease,
-    opacity 2.0s ease;
+    scale 1.0s ease,
+    opacity 1.0s ease;
 }
 
 .texts {
@@ -136,7 +136,7 @@ h1 {
 /* Forward Leave */
 
 .forward-leave-to .container {
-  opacity: 0.5;
+  opacity: 0;
   scale: 1.2 1.2;
 }
 

@@ -2,17 +2,11 @@
 import router from './router';
 import { RouterView } from 'vue-router'
 import { useCurrentIndexStore } from './stores/currentIndex';
-import { storeToRefs } from 'pinia';
 import NavigationBar from './components/NavigationBar.vue';
-import { watch } from 'vue';
+import ScrollArrow from './components/ScrollArrow.vue';
 
 const {getPath, adjustIndex} = useCurrentIndexStore()
-const {currentIndex} = storeToRefs(useCurrentIndexStore())
 let wheelBlocked = false
-
-watch(currentIndex, () => {
-  console.log("wow")
-})
 
 document.addEventListener('wheel', (ev) => {
   if (!wheelBlocked) {
@@ -22,7 +16,7 @@ document.addEventListener('wheel', (ev) => {
       router.replace(getPath())
       setTimeout(() => {
         wheelBlocked = false
-      }, 1500);
+      }, 1000);
     }
   }
 })
@@ -37,13 +31,13 @@ document.addEventListener('wheel', (ev) => {
     <RouterView v-slot="{ Component, route }">
       <Transition
         :name="(route.meta.transition as string) || 'forward'"
-        :duration="1500"
+        :duration="1000"
       >
         <component :is="Component"/>
       </Transition>
     </RouterView>
   </div>
-  <div class="scroll-tip"></div>
+  <ScrollArrow></ScrollArrow>
 </template>
 
 <style scoped>
@@ -58,15 +52,6 @@ document.addEventListener('wheel', (ev) => {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-}
-
-.scroll-tip {
-  position: absolute;
-  background-color: red;
-  width: 100px;
-  height: 50px;
-  top: 80vh;
-  left: 50vw;
 }
 
 header {
