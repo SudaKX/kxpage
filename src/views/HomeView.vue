@@ -4,6 +4,8 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 
 <template>
   <FrameWrapper>
+    <div class="glass g-top"></div>
+    <div class="glass g-down"></div>
     <div class="container">
       <div class="texts">
         <div>
@@ -30,8 +32,8 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
   background-color: transparent;
 
   transition:
-    opacity 1.5s ease,
-    scale 1.5s ease;
+    scale 2.0s ease,
+    opacity 2.0s ease;
 }
 
 .texts {
@@ -64,8 +66,8 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 .background {
   position: absolute;
   translate: 10% 0%;
-  top: 8%;
-  height: 84%;
+  top: 0%;
+  height: 100%;
   width: 100%;
   background-position: center;
   background-image: 
@@ -74,6 +76,23 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 
   animation: 15s movement linear infinite;
   z-index: -1;
+}
+
+.glass {
+  position: absolute;
+  width: 100%;
+  height: 10%;
+  backdrop-filter: blur(50px);
+  background-color: var(--kx-dark-black0-half);
+  z-index: 1;
+}
+
+.glass.g-top {
+  top: 0%;
+}
+
+.glass.g-down {
+  bottom: 0%;
 }
 
 h1 {
@@ -126,6 +145,5 @@ h1 {
   opacity: 0.5;
   scale: 1.2 1.2;
 }
-
 
 </style>
