@@ -29,17 +29,15 @@ const props = defineProps<{
   color: white;
   font-size: large;
   transition:
-    color 0.5s,
-    text-shadow 0.5s;
+    color 0.5s;
 }
 
 .router-link-active.link {
-  color: blue;
+  color: var(--kx-dark-activate);
 }
 
 .link:hover {
-  color: blue;
-  text-shadow: 1px 1px 2px green;
+  color: var(--kx-dark-activate);
 }
 
 .title {

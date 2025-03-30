@@ -4,9 +4,7 @@
       v-for="(item, index) in routeButtonData"
       v-bind="item" :key="index"/>
   </nav>
-  <div class="logo">
-
-  </div>
+  <img class="logo" src="/kx_icon.png">
 </template>
 
 <script setup lang="ts">
@@ -24,13 +22,15 @@ import { routeButtonData } from '@/router/index'
   justify-content: flex-end;
   width: 100%;
   height: 100%;
+  background-image:
+    linear-gradient(var(--kx-dark-black0-half), transparent);
 }
 
 .logo {
   position: absolute;
-  background-color: blue;
   height: 100%;
-  width: 200px;
+  padding: 15px;
+  padding-left: 50px;
 }
 </style>
 

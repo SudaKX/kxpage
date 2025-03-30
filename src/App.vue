@@ -2,10 +2,17 @@
 import router from './router';
 import { RouterView } from 'vue-router'
 import { useCurrentIndexStore } from './stores/currentIndex';
+import { storeToRefs } from 'pinia';
 import NavigationBar from './components/NavigationBar.vue';
+import { watch } from 'vue';
 
 const {getPath, adjustIndex} = useCurrentIndexStore()
+const {currentIndex} = storeToRefs(useCurrentIndexStore())
 let wheelBlocked = false
+
+watch(currentIndex, () => {
+  console.log("wow")
+})
 
 document.addEventListener('wheel', (ev) => {
   if (!wheelBlocked) {
@@ -36,6 +43,7 @@ document.addEventListener('wheel', (ev) => {
       </Transition>
     </RouterView>
   </div>
+  <div class="scroll-tip"></div>
 </template>
 
 <style scoped>
@@ -50,7 +58,15 @@ document.addEventListener('wheel', (ev) => {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  z-index: 0;
+}
+
+.scroll-tip {
+  position: absolute;
+  background-color: red;
+  width: 100px;
+  height: 50px;
+  top: 80vh;
+  left: 50vw;
 }
 
 header {

@@ -5,4 +5,5 @@
   box-sizing: border-box;
   margin: 0;
   background-color: transparent;
+  z-index: 0;
 }

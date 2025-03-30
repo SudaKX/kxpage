@@ -60,7 +60,7 @@ router.afterEach((to, from) => {
   })
   const { setIndex } = useCurrentIndexStore()
   setIndex(toIndex)
-  to.meta.transition = toIndex > fromIndex ? 'forward' : 'rewind'
+  to.meta.transition = toIndex >= fromIndex ? 'forward' : 'rewind'
 })
 
 export default router

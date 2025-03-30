@@ -17,6 +17,7 @@
   position: absolute;
   height: 100%;
   width: 100vw;
+  background-color: var(--kx-dark-black0);
 }
 .forward-enter-active.wrapper {
   z-index: -1;

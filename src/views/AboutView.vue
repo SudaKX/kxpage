@@ -16,6 +16,15 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
   width: 100%;
   background-color: yellow;
 }
+
+.forward-enter-active .about {
+  background-color: red;
+}
+
+.forward-leave-active .about {
+  background-color: yellowgreen;
+}
+
 h1 {
   position: absolute;
   display: block;
