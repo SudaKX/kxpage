@@ -1,15 +1,13 @@
 <template>
   <nav class="nav-bar">
-    <NavigationButton
-      v-for="(item, index) in routeButtonData"
-      v-bind="item" :key="index"/>
+    <NavigationButton v-for="(item, index) in routeButtonData" v-bind="item" :key="index" />
   </nav>
-  <img class="logo" src="/kx_icon.png">
+  <img class="logo" src="/kx_icon.png" @click="router.replace('/')">
 </template>
 
 <script setup lang="ts">
 import NavigationButton from './NavigationButton.vue';
-import { routeButtonData } from '@/router/index'
+import { router, routeButtonData } from '@/router/index'
 
 
 </script>
@@ -33,5 +31,3 @@ import { routeButtonData } from '@/router/index'
   padding-left: 50px;
 }
 </style>
-
-
