@@ -24,14 +24,14 @@
 }
 .forward-leave-active.wrapper {
   z-index: 0;
-  transition: width 1.5s ease;
+  transition: width 1s ease-in-out;
 }
 .forward-leave-to.wrapper {
   width: 0vw;
 }
 .rewind-enter-active.wrapper {
   z-index: 1;
-  transition: width 1.5s ease;
+  transition: width 1s ease-in-out;
 }
 .rewind-enter-from.wrapper {
   width: 0vw;

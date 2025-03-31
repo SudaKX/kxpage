@@ -19,5 +19,5 @@ export const useCurrentIndexStore = defineStore('cIndex', () => {
   function getPath(): string {
     return routeButtonData[currentIndex.value].path
   }
-  return { currentIndex, setIndex, adjustIndex, getPath }
+  return { currentIndex, setIndex, adjustIndex, getPath, maxIndex }
 })
