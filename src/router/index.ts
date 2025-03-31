@@ -1,23 +1,41 @@
+import { type Component } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useCurrentIndexStore } from '@/stores/currentIndex'
 import HomeView from '../views/HomeView.vue'
 import EventView from '@/views/EventView.vue'
 import AboutView from '@/views/AboutView.vue'
+import DepartmentView from '@/views/DepartmentView.vue'
+import MoreView from '@/views/MoreView.vue';
 
-const routeData = [
+interface routeDataSpec {
+  route: string
+  routeName: string
+  buttonSubtitle: string
+  buttonTitle: string
+  component: Component
+}
+
+const routeData: routeDataSpec[] = [
   {
     route: "/",
     routeName: "home",
     buttonSubtitle: "首页",
-    buttonTitle: "Home page",
+    buttonTitle: "Home",
     component: HomeView
   },
   {
-    route: "/about",
+    route: "/introduction",
     routeName: "about",
-    buttonSubtitle: "关于",
-    buttonTitle: "About",
+    buttonSubtitle: "简介",
+    buttonTitle: "Introduction",
     component: AboutView
+  },
+  {
+    route: "/departments",
+    routeName: "departments",
+    buttonSubtitle: "部门",
+    buttonTitle: "Departments",
+    component: DepartmentView
   },
   {
     route: "/events",
@@ -25,6 +43,13 @@ const routeData = [
     buttonSubtitle: "活动",
     buttonTitle: "Events",
     component: EventView
+  },
+  {
+    route: "/more",
+    routeName: "more",
+    buttonSubtitle: "更多",
+    buttonTitle: "More",
+    component: MoreView
   }
 ]
 
