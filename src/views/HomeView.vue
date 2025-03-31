@@ -15,6 +15,8 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
         <div class="h-sep"></div>
         <h1>学生科技协会</h1>
       </div>
+      <div class="svg-deco">
+      </div>
       <div class="background"></div>
     </div>
   </FrameWrapper>
@@ -24,6 +26,7 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 
 .container {
   position: absolute;
+  pointer-events: none;
   top: 0%;
   left: 0%;
   height: 100%;
@@ -36,12 +39,25 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
     opacity 1.0s ease;
 }
 
+.svg-deco {
+  position: absolute;
+  top: 38%;
+  height: 57%;
+  width: 100%;
+  background-color: var(--kx-dark-black0-half);
+  mask-image: url("/ssta.svg");
+  mask-repeat: repeat-x;
+  mask-size: contain;
+  z-index: -1;
+
+  transition: opacity 0.3s ease-out 4.0s;
+}
+
 .texts {
   position: absolute;
   top: 40%;
   height: 14%;
   left: 10%;
-  background-color: var(--kx-dark-black0-half);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -65,7 +81,7 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 
 .background {
   position: absolute;
-  translate: 10% 0%;
+  translate: 0% 0%;
   top: 0%;
   height: 100%;
   width: 100%;
@@ -75,14 +91,14 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
   background-repeat: no-repeat;
 
   animation: 15s movement linear infinite;
-  z-index: -1;
+  z-index: -2;
 }
 
 .glass {
   position: absolute;
   width: 100%;
   height: 10%;
-  backdrop-filter: blur(50px);
+  backdrop-filter: blur(25px);
   background-color: var(--kx-dark-black0-half);
   z-index: 1;
 }
@@ -117,11 +133,11 @@ h1 {
     opacity: 1.0;
   }
   60% {
-    background-size: 90vmax 90vmax;
-    opacity: 0.9;
+    background-size: 105vmax 105vmax;
+    opacity: 1.0;
   }
-  90% {
-    background-size: 100vmax 100vmax;
+  85% {
+    background-size: 80vmax 80vmax;
     opacity: 0;
   }
 }
@@ -131,6 +147,10 @@ h1 {
 .forward-enter-from .texts {
   opacity: 0;
   transform: translate(-20vw, 0);
+}
+
+.forward-enter-from .svg-deco {
+  opacity: 0;
 }
 
 /* Forward Leave */
@@ -144,6 +164,10 @@ h1 {
 .rewind-enter-from .container {
   opacity: 0.5;
   scale: 1.2 1.2;
+}
+
+.rewind-enter-from .svg-deco {
+  opacity: 0;
 }
 
 </style>
