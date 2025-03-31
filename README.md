@@ -1,39 +1,24 @@
-# kxpage
+# 苏州大学计算机科学与技术学院 - 学生科技协会官网
 
-This template should help get you started developing with Vue 3 in Vite.
+技术栈：
+- 前端：`Vue3` + `TypeScript`
+- 后端：`FastAPI`
 
-## Recommended IDE Setup
+## 贡献指南
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+请勿在 `main` 分支里提交任何更改  
+使用如下的语句创建**个人开发分支**，并在其中编写新的内容
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```bash
+git branch dev-<你的分支名>
 ```
 
-### Compile and Hot-Reload for Development
+**e.g.**
 
-```sh
-npm run dev
+```bash
+git branch dev-darksky
 ```
 
-### Type-Check, Compile and Minify for Production
+提交的时候，请寻找**管理员** *比如说 Darksky* 帮你创建新的分支
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+commit 介绍请使用**中文**，很显然并没有非中文开发者参与这个项目
