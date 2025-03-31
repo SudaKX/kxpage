@@ -19,4 +19,6 @@ git branch dev-<你的分支名>
 git branch dev-darksky
 ```
 
+提交的时候，请寻找**管理员** *比如说 Darksky* 帮你创建新的分支
+
 commit 介绍请使用**中文**，很显然并没有非中文开发者参与这个项目
