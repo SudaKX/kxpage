@@ -5,8 +5,10 @@
     --kx-dark-black0-half: rgba(17, 17, 17, 0.5);
 
     --kx-dark-white0-qua: rgba(255, 255, 255, 0.25);
+    --kx-dark-white0: rgba(255, 255, 255);
 
-    --kx-dark-neglect: rgba(36, 36, 36);
+    --kx-dark-neglect: rgb(60, 60, 60);
+    --kx-dark-neglect-light: rgb(99, 99, 99);
 
     --kx-dark-activate: rgb(0, 195, 255);
     --kx-dark-activate-em: rgb(57, 209, 255);
