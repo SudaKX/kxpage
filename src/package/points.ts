@@ -26,6 +26,7 @@ let currentPoints: Point[] = []
 
 export const config = {
   brightnessThreshold: 170,
+  alphaThreshold: 20,
   sampleStep: 7,
   fillR: 150,
   fillG: 150,
@@ -325,10 +326,11 @@ async function loadImages(imageUrls: string[]): Promise<void> {
         const a = data[index + 3]; // 透明度通道
   
         // 计算平均亮度
-        const brightness = (r + g + b) / 3 * (a / 256);
+        let brightness = (r + g + b) / 3;
+        if (a < config.alphaThreshold) brightness = 255
   
         // 根据透明度和亮度阈值决定是否生成点
-        if (brightness > config.brightnessThreshold) {
+        if (brightness < config.brightnessThreshold) {
           const point: PointSpec = {
             originX: x - Math.floor(canvas.width / 2),
             originY: y - Math.floor(canvas.height / 2)
@@ -408,6 +410,6 @@ export function startAnimation(element: HTMLCanvasElement): void {
 }
 
 await loadImages([
-  "/xh-r.png", "/kyb.png"
+  "/xh-r.png", "/twb.png", "/cp.png"
 ])
 
