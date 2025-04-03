@@ -10,6 +10,17 @@ interface PointSpec {
   originY: number
 }
 
+interface InputSpec {
+  imagePath: string
+  revert?: boolean
+  alphaThreshold?: number
+  brightnessThreshold?: number
+  scaleX?: number
+  scaleY?: number
+  offsetX?: number
+  offsetY?: number
+}
+
 let previousTimestamp: number | undefined
 let imageLoaded: boolean = false
 let bindCtx: CanvasRenderingContext2D | null = null
@@ -283,7 +294,7 @@ function mouseUpHandler(ev: MouseEvent): void {
   }
 }
 
-async function loadImages(imageUrls: string[]): Promise<void> {
+export async function loadImages(imageSpecs: InputSpec[]): Promise<void> {
   if (imageLoaded) return
   const loadImage = (url: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => { 
@@ -294,18 +305,27 @@ async function loadImages(imageUrls: string[]): Promise<void> {
     });
   };
 
-  const createCanvasFromImage = (image: HTMLImageElement): HTMLCanvasElement => {
+  const createCanvasFromImage = (
+    image: HTMLImageElement, scaleX: number, scaleY: number
+  ): HTMLCanvasElement => {
     const canvas = document.createElement('canvas');
-    canvas.width = image.width;
-    canvas.height = image.height;
+    canvas.width = image.width * scaleX;
+    canvas.height = image.height * scaleY;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      ctx.drawImage(image, 0, 0);
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     }
     return canvas;
   };
 
-  const generatePoints = (canvas: HTMLCanvasElement): PointSpec[] => {
+  const generatePoints = (
+    canvas: HTMLCanvasElement,
+    revert: boolean,
+    alphaThreshold: number,
+    brightnessThreshold: number,
+    offsetX: number,
+    offsetY: number
+  ): PointSpec[] => {
     const points: PointSpec[] = [];
     const ctx = canvas.getContext('2d');
     if (!ctx) {
@@ -327,13 +347,19 @@ async function loadImages(imageUrls: string[]): Promise<void> {
   
         // 计算平均亮度
         let brightness = (r + g + b) / 3;
-        if (a < config.alphaThreshold) brightness = 255
-  
+        if (a < alphaThreshold) {
+          // transparent pixel
+          continue
+        }
+        
+        if (revert) {
+          brightness = 255 - brightness
+        }
         // 根据透明度和亮度阈值决定是否生成点
-        if (brightness < config.brightnessThreshold) {
+        if (brightness < brightnessThreshold) {
           const point: PointSpec = {
-            originX: x - Math.floor(canvas.width / 2),
-            originY: y - Math.floor(canvas.height / 2)
+            originX: x - Math.floor(canvas.width / 2) + offsetX,
+            originY: y - Math.floor(canvas.height / 2) + offsetY
           }
           points.push(point);
         }
@@ -343,12 +369,25 @@ async function loadImages(imageUrls: string[]): Promise<void> {
     return points;
   };
 
-  for (const url of imageUrls) {
+  for (const spec of imageSpecs) {
     try {
-      const img = await loadImage(url);
-      const canvas = createCanvasFromImage(img);
+      const {
+        imagePath,
+        revert = false,
+        alphaThreshold = config.alphaThreshold,
+        brightnessThreshold = config.brightnessThreshold,
+        scaleX = 1.0,
+        scaleY = 1.0,
+        offsetX = config.offsetX,
+        offsetY = config.offsetY
+      } = spec;
+      const img = await loadImage(imagePath);
+      const canvas = createCanvasFromImage(img, scaleX, scaleY);
       imageInfos.push({
-        imagePoints: generatePoints(canvas),
+        imagePoints: generatePoints(
+          canvas, revert, alphaThreshold, brightnessThreshold,
+          offsetX, offsetY
+        ),
         height: canvas.height,
         width: canvas.width
       });
@@ -408,8 +447,3 @@ export function startAnimation(element: HTMLCanvasElement): void {
     cbNumber = requestAnimationFrame(singleFrame)
   }, config.activationDelay);
 }
-
-await loadImages([
-  "/xh-r.png", "/twb.png", "/cp.png"
-])
-

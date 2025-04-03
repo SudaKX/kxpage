@@ -4,6 +4,8 @@ import { RouterView } from 'vue-router'
 import { useCurrentIndexStore } from './stores/currentIndex';
 import NavigationBar from './components/NavigationBar.vue';
 import ScrollArrow from './components/ScrollArrow.vue';
+import { loadImages } from './package/points.ts';
+import { onMounted } from 'vue';
 
 const {getPath, adjustIndex} = useCurrentIndexStore()
 let wheelBlocked = false
@@ -19,6 +21,23 @@ document.addEventListener('wheel', (ev) => {
       }, 1000);
     }
   }
+})
+
+onMounted(async () => {
+  await loadImages([
+    {
+      imagePath: "/xh-r.png",
+      revert: true,
+      offsetX: 500
+    },
+    {
+      imagePath: "/xh-r.png",
+      revert: false,
+      scaleX: 0.5,
+      scaleY: 0.5,
+      offsetX: -500
+    }
+  ])
 })
 
 </script>
