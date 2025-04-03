@@ -2,7 +2,9 @@
 
 技术栈：
 - 前端：`Vue3` + `TypeScript`
-- 后端：`FastAPI`
+- 后端：`Python` + `FastAPI`
+
+[点此进入后端仓库](https://github.com/SilverAkatoki/kxpage-backend)
 
 ## 贡献指南
 
