@@ -3,7 +3,6 @@
     <DeptDetailSwitch></DeptDetailSwitch>
     <canvas class="vfx" ref="vfx" :width="width" :height="height"></canvas>
     <div class="background"></div>
-    <p class="back-text">Departments</p>
   </FrameWrapper>
 </template>
 
@@ -97,19 +96,6 @@ div.background {
 }
 .rewind-enter-from :deep(div.container) {
   opacity: 0;
-}
-
-p.back-text {
-  position: absolute;
-  pointer-events: none;
-  top: 85%;
-  left: 5%;
-  display: block;
-  font-size: 4vw;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
-  color: var(--kx-dark-neglect);
-  z-index: -2;
 }
 
 </style>

@@ -15,8 +15,6 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
         <div class="h-sep"></div>
         <h1>学生科技协会</h1>
       </div>
-      <div class="svg-deco">
-      </div>
       <div class="background"></div>
     </div>
   </FrameWrapper>
@@ -39,24 +37,10 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
     opacity 1.0s ease;
 }
 
-.svg-deco {
-  position: absolute;
-  top: 38%;
-  height: 57%;
-  width: 100%;
-  background-color: var(--kx-dark-black0-half);
-  mask-image: url("/ssta.svg");
-  mask-repeat: repeat-x;
-  mask-size: contain;
-  z-index: -1;
-
-  transition: opacity 0.3s ease-out 4.0s;
-}
-
 .texts {
   position: absolute;
   top: 40%;
-  height: 14%;
+  height: 12%;
   left: 10%;
   display: flex;
   flex-direction: row;
@@ -74,17 +58,17 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
   flex: none;
   background-color: var(--kx-dark-activate);
   height: 100%;
-  width: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
+  width: 0.5vmax;
+  margin-left: 1vmax;
+  margin-right: 1vmax;
 }
 
 .background {
   position: absolute;
-  translate: 0% 0%;
-  top: 0%;
+  translate: 0 0;
+  top: 0;
   height: 100%;
-  width: 100%;
+  width: 115%;
   background-position: center;
   background-image: 
     radial-gradient(closest-side, var(--kx-dark-activate), transparent);
@@ -116,7 +100,15 @@ h1 {
   position: relative;
   display: block;
   color: white;
-  font-size: 400%;
+  font-size: 3vmax;
+}
+
+h2 {
+  font-size: 1.5vmax;
+}
+
+h3 {
+  font-size: 1vmax;
 }
 
 @keyframes movement {

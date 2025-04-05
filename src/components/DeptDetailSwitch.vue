@@ -15,6 +15,9 @@
     <component :is="DepartmentDetail" v-bind="deptDetail" :key="currentDepartment">
     </component>
   </Transition>
+  <div class="length">
+    <div class="highlight" :style="pageIndicatorStyle"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -22,6 +25,16 @@ import DepartmentDetail from './DepartmentDetail.vue';
 import { computed, ref } from 'vue';
 import { adjustIndex } from '@/package/points';
 import { departmentDescription } from '@/package/staticData';
+
+const detailSpecs = departmentDescription;
+const currentDepartment = ref(0)
+const detailSpecSize: number = detailSpecs.length
+const deptDetail = computed(() => detailSpecs[currentDepartment.value])
+const pageIndicatorStyle = computed(() => {
+  const left = currentDepartment.value * 100 / detailSpecSize;
+  const width = 100 / detailSpecSize;
+  return `left: ${left}%; width: ${width}%;`
+})
 
 function changeDept(step: number) {
   const temp = currentDepartment.value + step
@@ -34,11 +47,6 @@ function changeDept(step: number) {
     currentDepartment.value = temp
   }
 }
-
-const detailSpecs = departmentDescription;
-const currentDepartment = ref(0)
-const detailSpecSize: number = detailSpecs.length
-const deptDetail = computed(() => detailSpecs[currentDepartment.value])
 
 </script>
 
@@ -119,6 +127,29 @@ div.to-right {
 
 .dpc-leave-to :deep(.indicator) {
   opacity: 0;
+}
+
+div.length {
+  position: absolute;
+  pointer-events: none;
+  top: 85%;
+  left: 5%;
+  width: 15vmax;
+  height: 2.4vmax;
+  display: block;
+  background-color: var(--kx-dark-neglect);
+  mask-image: url("/deptMask.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: 0 0;
+  z-index: -2;
+}
+
+div.length>div.highlight {
+  position: absolute;
+  height: 100%;
+  background-color: var(--kx-dark-activate);
+  transition: left 200ms ease-in-out;
 }
 
 </style>
