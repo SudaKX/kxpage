@@ -1,11 +1,6 @@
 <template>
   <FrameWrapper>
-    <div class="button-left" @click="() => {buttonClick(-1)}">
-      
-    </div>
-    <div class="button-right" @click="() => {buttonClick(1)}">
-
-    </div>
+    <DeptDetailSwitch></DeptDetailSwitch>
     <canvas class="vfx" ref="vfx" :width="width" :height="height"></canvas>
     <div class="background"></div>
     <p class="back-text">Departments</p>
@@ -13,10 +8,11 @@
 </template>
 
 <script setup lang="ts">
+import DeptDetailSwitch from '@/components/DeptDetailSwitch.vue';
 import FrameWrapper from '@/components/FrameWrapper.vue';
 import { onMounted, onUnmounted, useTemplateRef } from 'vue';
 import {
-  startAnimation, stopAnimation, updateWindowSize, adjustIndex
+  startAnimation, stopAnimation, updateWindowSize
 } from '@/package/points';
 import { ref } from 'vue';
 
@@ -24,10 +20,6 @@ const canvas = useTemplateRef("vfx")
 const height = ref(0)
 const width = ref(0)
 let resizing: boolean = false
-
-function buttonClick(direction: number) {
-  adjustIndex(direction)
-}
 
 function resizeHandler() {
   if (!resizing) {
@@ -56,31 +48,11 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.button-left {
-  position: absolute;
-  background-color: red;
-  top: 50%;
-  left: 10%;
-  width: 100px;
-  height: 200px;
-  translate: -50% -50%;
-}
-
-.button-right {
-  position: absolute;
-  background-color: red;
-  top: 50%;
-  right: 10%;
-  width: 100px;
-  height: 200px;
-  translate: 50% -50%;
-}
 
 canvas.vfx {
   position: absolute;
   pointer-events: none;
   z-index: -1;
-  scale: 0.8 0.8;
 }
 
 div.background {
@@ -111,6 +83,20 @@ div.background {
 .rewind-enter-from div.background {
   opacity: 0;
   scale: 0.5 0.5;
+}
+
+.forward-enter-from :deep(div.button) {
+  opacity: 0;
+}
+.rewind-enter-from :deep(div.button) {
+  opacity: 0;
+}
+
+.forward-enter-from :deep(div.container) {
+  opacity: 0;
+}
+.rewind-enter-from :deep(div.container) {
+  opacity: 0;
 }
 
 p.back-text {

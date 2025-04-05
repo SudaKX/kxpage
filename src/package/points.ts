@@ -38,13 +38,13 @@ let currentPoints: Point[] = []
 export const config = {
   brightnessThreshold: 170,
   alphaThreshold: 20,
-  sampleStep: 7,
+  sampleStep: 4,
   fillR: 150,
   fillG: 150,
   fillB: 150,
   fillA: 0.6,
   alphaDuration: 500,
-  particleSize: 4,
+  particleSize: 2,
   distributeDistance: 100,
   offsetX: 0,
   offsetY: 0,
@@ -55,7 +55,7 @@ export const config = {
   minPushForce: 8,
   frictionFactor: 0.8,
   activationDelay: 1000,
-  mouseScale: 0.8,
+  mouseScale: 1.0,
 }
 
 class Point {
@@ -436,6 +436,7 @@ export function stopAnimation(): void {
 
 export function startAnimation(element: HTMLCanvasElement): void {
   setTimeout(() => {
+    currentIndex = 0
     revertFlag = -1
     previousTimestamp = undefined
     window.addEventListener("mousemove", mouseMoveHandler)

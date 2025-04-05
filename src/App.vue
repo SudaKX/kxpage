@@ -6,6 +6,9 @@ import NavigationBar from './components/NavigationBar.vue';
 import ScrollArrow from './components/ScrollArrow.vue';
 import { loadImages } from './package/points.ts';
 import { onMounted } from 'vue';
+import { pointsGraphConfig } from './package/staticData.ts';
+
+document.onselectstart = function(){ return false; };
 
 const {getPath, adjustIndex} = useCurrentIndexStore()
 let wheelBlocked = false
@@ -24,20 +27,7 @@ document.addEventListener('wheel', (ev) => {
 })
 
 onMounted(async () => {
-  await loadImages([
-    {
-      imagePath: "/xh-r.png",
-      revert: true,
-      offsetX: 500
-    },
-    {
-      imagePath: "/xh-r.png",
-      revert: false,
-      scaleX: 0.5,
-      scaleY: 0.5,
-      offsetX: -500
-    }
-  ])
+  await loadImages(pointsGraphConfig)
 })
 
 </script>

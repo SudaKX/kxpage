@@ -12,5 +12,6 @@
 
     --kx-dark-activate: rgb(0, 195, 255);
     --kx-dark-activate-em: rgb(57, 209, 255);
+    --kx-dark-activate-dark: rgb(39, 132, 161);
     --kx-dark-activate-em-half: rgba(57, 209, 255, 0.5);
 }

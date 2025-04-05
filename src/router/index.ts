@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useCurrentIndexStore } from '@/stores/currentIndex'
 import HomeView from '../views/HomeView.vue'
 import EventView from '@/views/EventView.vue'
-import AboutView from '@/views/AboutView.vue'
 import DepartmentView from '@/views/DepartmentView.vue'
 import MoreView from '@/views/MoreView.vue';
 
@@ -22,13 +21,6 @@ const routeData: routeDataSpec[] = [
     buttonSubtitle: "首页",
     buttonTitle: "Home",
     component: HomeView
-  },
-  {
-    route: "/introduction",
-    routeName: "about",
-    buttonSubtitle: "简介",
-    buttonTitle: "Introduction",
-    component: AboutView
   },
   {
     route: "/departments",
