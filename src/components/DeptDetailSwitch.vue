@@ -59,6 +59,7 @@ function changeDept(step: number) {
 div.button {
   display: flex;
   position: absolute;
+  cursor: pointer;
   width: 5vw;
   height: 15vh;
   align-items: center;
