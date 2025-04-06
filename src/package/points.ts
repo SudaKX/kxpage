@@ -381,7 +381,7 @@ export async function loadImages(imageSpecs: InputSpec[]): Promise<void> {
         offsetX = config.offsetX,
         offsetY = config.offsetY
       } = spec;
-      const img = await loadImage(imagePath);
+      const img = await loadImage(`/points/${imagePath}`);
       const canvas = createCanvasFromImage(img, scaleX, scaleY);
       imageInfos.push({
         imagePoints: generatePoints(

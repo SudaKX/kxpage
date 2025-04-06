@@ -4,7 +4,7 @@
       v-for="(item, index) in routeButtonData"
       v-bind="item" :key="index"/>
   </nav>
-  <img class="logo" src="/kx_icon.png">
+  <img class="logo" src="@/assets/images/kx_icon.png">
 </template>
 
 <script setup lang="ts">

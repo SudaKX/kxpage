@@ -143,7 +143,7 @@ div.length {
   height: 2.4vmax;
   display: block;
   background-color: var(--kx-dark-neglect);
-  mask-image: url("/deptMask.svg");
+  mask-image: url("../assets/images/deptMask.svg");
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: 0 0;

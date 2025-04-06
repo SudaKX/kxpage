@@ -33,7 +33,7 @@
   ],
   "points": [
     {
-      "imagePath": "/xh-r.png",
+      "imagePath": "xh-r.png",
       "revert": false,
       "brightnessThreshold": 150,
       "scaleX": 0.8,
@@ -41,28 +41,28 @@
       "offsetX": 350
     },
     {
-      "imagePath": "/kyb.png",
+      "imagePath": "kyb.png",
       "offsetX": -300,
       "offsetY": -100,
       "scaleX": 0.7,
       "scaleY": 0.7
     },
     {
-      "imagePath": "/twb.png",
+      "imagePath": "twb.png",
       "offsetX": -300,
       "offsetY": -100,
       "scaleX": 0.7,
       "scaleY": 0.7
     },
     {
-      "imagePath": "/twb.png",
+      "imagePath": "twb.png",
       "offsetX": -300,
       "offsetY": -100,
       "scaleX": 0.7,
       "scaleY": 0.7
     },
     {
-      "imagePath": "/twb.png",
+      "imagePath": "twb.png",
       "offsetX": -300,
       "offsetY": -100,
       "scaleX": 0.7,

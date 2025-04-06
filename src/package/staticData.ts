@@ -23,21 +23,9 @@ interface StaticDataSpec {
   points: InputSpec[]
 }
 
-async function loadJson(filePath: string): Promise<StaticDataSpec> {
-  try {
-    const response = await fetch(filePath);
-    if (!response.ok) {
-      throw new Error(`Failed to load JSON file: ${response.status} ${response.statusText}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(`Error loading JSON file: ${error}`);
-    throw error;
-  }
-}
+import jsonUrl from '@/assets/data.json';
 
-const staticData = await loadJson("/data.json")
+const staticData = jsonUrl as StaticDataSpec;
 
 export const departmentDescription = staticData.departments;
 export const pointsGraphConfig = staticData.points
