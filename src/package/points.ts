@@ -38,7 +38,7 @@ let currentPoints: Point[] = []
 export const config = {
   brightnessThreshold: 170,
   alphaThreshold: 20,
-  sampleStep: 4,
+  sampleStep: 5,
   fillR: 150,
   fillG: 150,
   fillB: 150,

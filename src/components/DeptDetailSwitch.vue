@@ -31,9 +31,13 @@ const currentDepartment = ref(0)
 const detailSpecSize: number = detailSpecs.length
 const deptDetail = computed(() => detailSpecs[currentDepartment.value])
 const pageIndicatorStyle = computed(() => {
-  const left = currentDepartment.value * 100 / detailSpecSize;
-  const width = 100 / detailSpecSize;
-  return `left: ${left}%; width: ${width}%;`
+  let width = 100 / (detailSpecSize - 1);
+  let left = (currentDepartment.value - 1) * width;
+  if (currentDepartment.value == 0) {
+    left = 0;
+    width = 100;
+  }
+  return `left: ${left}%; width: ${width}%;`;
 })
 
 function changeDept(step: number) {
@@ -149,7 +153,9 @@ div.length>div.highlight {
   position: absolute;
   height: 100%;
   background-color: var(--kx-dark-activate);
-  transition: left 200ms ease-in-out;
+  transition:
+    left 200ms ease-in-out,
+    width 200ms ease;
 }
 
 </style>
