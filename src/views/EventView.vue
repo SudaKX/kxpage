@@ -34,7 +34,12 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 import { useEventData } from '@/stores/eventData';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import { school } from '@/proto/compiled';
 import axios from 'axios';
+
+const message = school.PBClass.create({ name: "hello" });
+const buffer  = school.PBClass.encode(message).finish();
+const decoded = school.PBClass.decode(buffer);
 
 const { eventLoaded } = storeToRefs(useEventData());
 const { getEvents, setEvents } = useEventData();

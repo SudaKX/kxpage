@@ -1,0 +1,8 @@
+// Class.proto
+syntax = "proto3";
+package school;
+
+message PBClass {
+    uint64 classId = 1;
+    string name = 2;
+}
