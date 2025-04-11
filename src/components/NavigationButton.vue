@@ -27,7 +27,7 @@ const props = defineProps<{
 
   text-decoration: none;
   color: white;
-  font-size: large;
+  font-size: 2.2vmin;
   transition:
     color 0.5s;
 }

@@ -1,9 +1,7 @@
 <template>
   <FrameWrapper>
     <Transition name="load" :duration="400" mode="out-in">
-      <div v-if="eventLoaded" class="container">
-        <h1> Event View</h1>
-      </div>
+      <EventDisplay v-if="eventLoaded"></EventDisplay>
       <div v-else-if="fetchFailed" class="fail">
         <div class="err-icon">:(</div>
         <div class="err-title">加载该页面时遇到错误</div>
@@ -34,15 +32,12 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 import { useEventData } from '@/stores/eventData';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { school } from '@/proto/compiled';
+import { events } from '@/proto/compiled';
 import axios from 'axios';
-
-const message = school.PBClass.create({ name: "hello" });
-const buffer  = school.PBClass.encode(message).finish();
-const decoded = school.PBClass.decode(buffer);
+import EventDisplay from '@/components/EventDisplay.vue';
 
 const { eventLoaded } = storeToRefs(useEventData());
-const { getEvents, setEvents } = useEventData();
+const { setEvents } = useEventData();
 const fetchFailed = ref(false);
 const errorContent = ref("");
 let timeoutNumber: number | undefined = undefined;
@@ -53,12 +48,19 @@ onMounted(() => {
       timeoutNumber = undefined;
       if (!eventLoaded.value) {
         const response = await axios.get(
-          "http://local111", {
-            timeout: 10000
+          "http://127.0.0.1:8000/api/events", {
+            timeout: 10000, 
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/octet-stream'
+            },
+            responseType: 'arraybuffer'
           }
         );
-        setEvents([]);
-        console.log(response);
+        const messageList = events.EventList.toObject(
+          events.EventList.decode(new Uint8Array(response.data))
+        ).events;
+        setEvents(messageList);
       }
     } catch (error) {
       console.error(error);
@@ -77,12 +79,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-div.container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  background-color: green;
-}
 
 div.loading {
   position: absolute;
@@ -130,7 +126,7 @@ div.loading {
       height: 40%;
       width: 40%;
       background-color: transparent;
-      border: 5px solid var(--kx-dark-white0-dark);
+      border: 0.7vmin solid var(--kx-dark-white0-dark);
     }
 
     div.full {

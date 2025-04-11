@@ -2,13 +2,18 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
-interface EventSpec {
-  eventName: string
-  eventContent: string
+export interface EventSpec {
+  eventUUID: string
+  eventTitle: string
+  eventDescription: string
+  eventHref: string
+  eventTime: string
+  imageHash?: string
 }
 
 export const useEventData = defineStore('eventData', () => {
   let events: EventSpec[] = [];
+  const eventIndex = ref(-1);
   const eventLoaded = ref(false);
   function getEvents(): EventSpec[] {
     return events;
@@ -17,5 +22,5 @@ export const useEventData = defineStore('eventData', () => {
     eventLoaded.value = true;
     events = newEvents;
   }
-  return { eventLoaded, getEvents, setEvents };
+  return { eventLoaded, getEvents, setEvents, eventIndex};
 })

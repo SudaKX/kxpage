@@ -1,0 +1,17 @@
+syntax = "proto3";  // 使用proto3语法
+
+package events;  // 定义包名
+
+// 定义EventSpec消息
+message EventSpec {
+    string eventUUID = 1;          // 事件唯一标识符
+    string eventTitle = 2;
+    string eventDescription = 3;   // 事件描述
+    string eventHref = 4;          // 事件链接
+    string eventTime = 5;
+    string imageHash = 6;          // 可选的图片哈希值
+}
+
+message EventList {
+    repeated EventSpec events = 1;   // EventSpec 的列表
+}

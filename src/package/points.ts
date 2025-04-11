@@ -1,4 +1,8 @@
 
+/**
+ * Written by Darksky
+ */
+
 interface ImageInfo {
   imagePoints: PointSpec[],
   height: number,
