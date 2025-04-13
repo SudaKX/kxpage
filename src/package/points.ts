@@ -25,20 +25,6 @@ interface InputSpec {
   offsetY?: number
 }
 
-let previousTimestamp: number | undefined
-let imageLoaded: boolean = false
-let bindCtx: CanvasRenderingContext2D | null = null
-let cbNumber: number
-let currentIndex: number = 0
-let imageListSize: number
-let leftOffset: number
-let topOffset: number
-let mouseX: number
-let mouseY: number
-let revertFlag: number
-const imageInfos: ImageInfo[] = []
-let currentPoints: Point[] = []
-
 export const config = {
   brightnessThreshold: 170,
   alphaThreshold: 20,
@@ -60,7 +46,24 @@ export const config = {
   frictionFactor: 0.8,
   activationDelay: 1000,
   mouseScale: 1.0,
+  canvasHeight: 1080,
+  canvasWidth: 1920,
 }
+
+let previousTimestamp: number | undefined
+let imageLoaded: boolean = false
+let bindCtx: CanvasRenderingContext2D | null = null
+let cbNumber: number
+let currentIndex: number = 0
+let imageListSize: number
+const leftOffset: number = Math.floor(config.canvasWidth / 2);
+const topOffset: number = Math.floor(config.canvasHeight / 2);
+let mouseX: number
+let mouseY: number
+let canvasRect: DOMRect
+let revertFlag: number
+const imageInfos: ImageInfo[] = []
+let currentPoints: Point[] = []
 
 class Point {
   x: number
@@ -282,8 +285,10 @@ function randomShuffle<T>(arr: Array<T>, start: number = 0, end: number = arr.le
 }
 
 function mouseMoveHandler(ev: MouseEvent): void {
-  mouseX = Math.floor((ev.pageX - leftOffset) / config.mouseScale )
-  mouseY = Math.floor((ev.pageY - topOffset) / config.mouseScale)
+  const scaledX = (ev.pageX - canvasRect.left) * config.canvasWidth / canvasRect.width;
+  const scaledY = (ev.pageY - canvasRect.top) * config.canvasHeight / canvasRect.height;
+  mouseX = Math.floor((scaledX - leftOffset) / config.mouseScale);
+  mouseY = Math.floor((scaledY - topOffset) / config.mouseScale);
 }
 
 function mouseDownHandler(ev: MouseEvent): void {
@@ -405,8 +410,7 @@ export async function loadImages(imageSpecs: InputSpec[]): Promise<void> {
 }
 
 export function updateWindowSize() {
-  leftOffset = Math.floor(window.innerWidth / 2)
-  topOffset = Math.floor(window.innerHeight / 2)
+  canvasRect = bindCtx?.canvas.getBoundingClientRect() as DOMRect;
 }
 
 export function adjustIndex(step: number): void {

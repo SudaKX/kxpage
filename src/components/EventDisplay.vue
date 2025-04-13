@@ -6,7 +6,7 @@
       </div>
       <div class="scroll-contain" ref="scBox">
         <div class="scroll-content" ref="scInner">
-          <EventItem ref="items"
+          <EventItem ref="items" @changeIndex="indexChangeHandler"
             v-for="(obj, index) in listSpecs" :key="index" v-bind="obj">
           </EventItem>
         </div>
@@ -14,8 +14,17 @@
     </div>
     <div class="swiper">
       <div class="display">
-        <canvas class="image-canvas" ref="canvas"></canvas>
-        <div class="event-desc">
+        <div class="image-container">
+          <div class="image-err" v-if="errorImage">
+            <h1 class="err-title">{{ errorTitle }}</h1>
+            <h2 class="err-texts">{{ errorContent }}</h2>
+          </div>
+          <div class="image-mask" :class="imageMaskState">
+            <h1 class="mask-texts">(NLink://Action) -> Loading . . .</h1>
+          </div>
+          <canvas class="image-canvas" ref="canvas"></canvas>
+        </div>
+        <div class="event-desc" :class="{hide: hideDescTexts}">
           {{ currentDesc }}
         </div>
         <div class="href-button" :class="{inactive: buttonInactive}" @click="jump">
@@ -34,12 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, type Reactive, reactive, ref, toRefs, useTemplateRef, watch} from 'vue';
+import { computed, onMounted, onUnmounted, type Reactive, reactive, ref, useTemplateRef, watch} from 'vue';
 import EventItem from './EventItem.vue';
 import { useEventData } from '@/stores/eventData';
 import { VerticalScrollBar } from '@/package/scrollBar';
 import { ImageDisplayCanvas } from '@/package/imageDisplay';
 import axios from 'axios';
+import { storeToRefs } from 'pinia';
 
 interface ListItemSpec {
   eventTime: string;
@@ -48,7 +58,7 @@ interface ListItemSpec {
 }
 
 const { getEvents } = useEventData();
-const { eventIndex } = toRefs(useEventData());
+const { eventIndex, allowChange } = storeToRefs(useEventData());
 const listSpecs: Reactive<ListItemSpec[]> = reactive([]);
 const sbBox = useTemplateRef("sbBox");
 const sbInner = useTemplateRef("sbInner");
@@ -56,12 +66,18 @@ const scBox = useTemplateRef("scBox");
 const scInner = useTemplateRef("scInner");
 const items = useTemplateRef("items");
 const displayCanvas = useTemplateRef("canvas");
+const hideDescTexts = ref(false);
 const buttonInactive = ref(true);
+const errorImage = ref(true);
+const errorTitle = ref("Error: No content.");
+const errorContent = ref("null");
+const imageMaskState = ref("");
 const currentDesc = computed(() => {
   return getEvents()[eventIndex.value]?.eventDescription;
 });
 let sbManager: VerticalScrollBar | undefined ;
 let imageDisplay: ImageDisplayCanvas | undefined;
+let lastTimeoutNumber: number | undefined;
 
 const cancelItemsLoad = watch(items, (value) => {
   if (value) {
@@ -72,27 +88,41 @@ const cancelItemsLoad = watch(items, (value) => {
     imageDisplay = new ImageDisplayCanvas(
       displayCanvas.value as HTMLCanvasElement
     );
+    if (eventIndex.value >= 0) {
+      const imageHash = getEvents()[eventIndex.value].imageHash;
+      if (imageHash) {
+        const success = imageDisplay?.changeImage(imageHash);
+        if (!success) {
+          errorImage.value = true;
+          errorTitle.value = "Error: No content.";
+          errorContent.value = `No content data for ${imageHash}`;
+        }
+      }
+    }
     cancelItemsLoad();
   }
 });
 
-const cancelEventIndexWatch = watch(eventIndex, (value) => {
-  const event = getEvents()[value];
-  buttonInactive.value = false;
-  if (!imageDisplay) return ;
+async function indexChangeHandler(index: number): Promise<void> {
+  const event = getEvents()[index];
+
+  buttonInactive.value = true;
+  imageMaskState.value = "at-mid";
+  hideDescTexts.value = true;
+  allowChange.value = false;
+  let fail = false;
+
   if (event.imageHash) {
-    if (imageDisplay.hasImageData(event.imageHash)) {
-      imageDisplay.changeImage(event.imageHash);
-    } else {
-      imageDisplay.setWait();
-      axios.get("http://127.0.0.1:8000/api/images", {
-        params: {h: event.imageHash},
-        timeout: 10000, 
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        responseType: "blob"
-      }).then((response) => {
+    if (!imageDisplay?.hasImageData(event.imageHash)) {
+      try {
+        const response = await axios.get("http://localhost:8000/api/images", {
+          params: {h: event.imageHash},
+          timeout: 10000, 
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          responseType: "blob"
+        });
         const blob = new Blob(
           [response.data], {type: response.headers['Content-Type'] as string}
         )
@@ -105,25 +135,53 @@ const cancelEventIndexWatch = watch(eventIndex, (value) => {
             imageElement.onerror = () => reject(new Error(`Fail to load ${event.imageHash}.`));
           });
         }
-        loadImage().then((element) => {
-          window.createImageBitmap(
-            element, 0, 0, element.width, element.height
-          ).then((imageBitmap) => {
-            URL.revokeObjectURL(url);
-            imageDisplay?.setImageData(event.imageHash as string, imageBitmap);
-            imageDisplay?.changeImage(event.imageHash as string);
-          });
-        });
-      })
+        const element = await loadImage();
+        const imageBitmap = await window.createImageBitmap(
+          element, 0, 0, element.width, element.height
+        );
+        URL.revokeObjectURL(url);
+        imageDisplay?.setImageData(event.imageHash as string, imageBitmap);
+        fail = false;
+      } catch (e) {
+        fail = true;
+        errorTitle.value = "Error: unknown."
+        errorContent.value = "null";
+        if (e instanceof Error) {
+          errorTitle.value = e.toString();
+          errorContent.value = e.stack || "null";
+        }
+      }
     }
+  } else {
+    fail = true;
+    errorTitle.value = "Error: No content.";
+    errorContent.value = "imageHash is not available."
   }
-});
+
+  lastTimeoutNumber = setTimeout(() => {
+    errorImage.value = fail;
+    eventIndex.value = index;
+    buttonInactive.value = event.eventHref ? false : true;
+    hideDescTexts.value = false;
+    imageMaskState.value = "at-dest";
+    if (event.imageHash) {
+      imageDisplay?.changeImage(event.imageHash);
+    }
+    lastTimeoutNumber = setTimeout(() => {
+      imageMaskState.value = "";
+      allowChange.value = true;
+      lastTimeoutNumber = undefined;
+    }, 500);
+  }, 500);
+}
 
 onMounted(() => {
+  allowChange.value = true;
+  const events = getEvents();
   if (eventIndex.value >= 0) {
+    errorImage.value = false;
     buttonInactive.value = false;
   }
-  const events = getEvents();
   events.forEach((value, index) => {
     listSpecs.push({
       eventTime: value.eventTime,
@@ -135,8 +193,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   sbManager?.dispose();
-  imageDisplay?.dispose();
-  cancelEventIndexWatch();
+  if (lastTimeoutNumber) {
+    clearTimeout(lastTimeoutNumber);
+  }
 })
 
 function jump(): void {
@@ -174,16 +233,71 @@ div.swiper {
     height: 75cqmin;
     width: 100cqmin;
 
-    canvas.image-canvas {
+    div.image-container {
       position: absolute;
       top: 15%;
       left: 5%;
       width: 86.4%;
       height: 64.8%;
-      background-color: aquamarine;
+      overflow: hidden;
+
+      div.image-err {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 5%;
+        background-color: var(--kx-dark-white0-dark);
+        z-index: 1;
+        
+        h1.err-title {
+          font-size: 3.5cqmin;
+        }
+        h2.err-texts {
+          font-size: 1.5cqmin;
+          white-space: pre-line;
+          font-weight: normal;
+        }
+      }
+
+      div.image-mask {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: var(--kx-dark-neglect-light);
+        translate: 0 -100%;
+        z-index: 2;
+
+        h1.mask-texts {
+          display: block;
+          margin: 10%;
+          font-family: 'Consolas', monospace;
+          font-size: 3cqmin;
+          color: var(--kx-dark-white0-dark);
+          white-space: pre-line;
+        }
+      }
+
+      div.image-mask.at-mid {
+        transition: translate 500ms ease;
+        translate: 0 0;
+      }
+
+      div.image-mask.at-dest {
+        transition: translate 500ms ease;
+        translate: 0 100%;
+      }
+
+      canvas.image-canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
     }
 
     div.event-desc {
+      pointer-events: none;
       position: absolute;
       right: 0%;
       bottom: 25%;
@@ -192,6 +306,15 @@ div.swiper {
       background-color: var(--kx-dark-neglect-half);
       backdrop-filter: blur(3px);
       transition: opacity 500ms ease;
+      font-size: 2cqmin;
+      color: var(--kx-dark-white0-3qua);
+      font-weight: bold;
+      padding: 2cqmin;
+      transition: color 500ms ease;
+    }
+
+    div.event-desc.hide {
+      color: transparent;
     }
 
     div.href-button {
@@ -227,7 +350,7 @@ div.swiper {
         justify-content: space-between;
         height: 50%;
         width: 90%;
-        margin: 0% 5% 5% 5%;
+        margin: 0% 3% 5% 7%;
         div.button-text {
           pointer-events: none;
           position: relative;

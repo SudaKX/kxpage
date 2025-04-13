@@ -10,9 +10,19 @@ export class ImageDisplayCanvas {
   identifierSet: Set<string>;
   bindCanvas: HTMLCanvasElement;
   bindContext: CanvasRenderingContext2D;
+  canvasHeight: number;
+  canvasWidth: number;
 
-  constructor(canvas: HTMLCanvasElement) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    canvasHeight: number = 1080,
+    canvasWidth: number = 1920
+  ) {
     this.identifierSet = new Set();
+    canvas.height = canvasHeight;
+    canvas.width = canvasWidth;
+    this.canvasHeight = canvasHeight;
+    this.canvasWidth = canvasWidth;
     this.bindCanvas = canvas;
     this.bindContext = canvas.getContext("2d") as CanvasRenderingContext2D;
   }
@@ -25,24 +35,23 @@ export class ImageDisplayCanvas {
     this.identifierSet.add(identifier);
   }
 
-  clear(): void {
-    console.log("clear");
-  }
-
-  setWait(): void {
-    console.log("set wait");
-  }
-  changeImage(identifier: string): void {
-    console.log(`change to ${identifier}`);
+  changeImage(identifier: string): boolean {
+    this.bindContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     const data = imageDataStorage.get(identifier);
     if (data) {
-      this.bindContext.drawImage(data, 0, 0);
+      const widthScaler = this.canvasWidth / data.width;
+      const heightScaler = this.canvasHeight / data.height;
+      const Scaler = Math.min(widthScaler, heightScaler);
+      const drawHeight = Math.floor(Scaler * data.height);
+      const drawWidth = Math.floor(Scaler * data.width);
+      const left = Math.floor((this.canvasWidth - drawWidth) / 2);
+      const top = Math.floor((this.canvasHeight - drawHeight) / 2);
+      this.bindContext.drawImage(data, left, top, drawWidth, drawHeight);
+      return true;
     }
+    return false;
   }
 
-  dispose(): void {
-
-  }
   clearImageData(): void {
     for (const identifier of this.identifierSet) {
       imageDataStorage.delete(identifier);

@@ -15,6 +15,8 @@ export const useEventData = defineStore('eventData', () => {
   let events: EventSpec[] = [];
   const eventIndex = ref(-1);
   const eventLoaded = ref(false);
+  const targetIndex = ref(-1);
+  const allowChange = ref(true);
   function getEvents(): EventSpec[] {
     return events;
   }
@@ -22,5 +24,5 @@ export const useEventData = defineStore('eventData', () => {
     eventLoaded.value = true;
     events = newEvents;
   }
-  return { eventLoaded, getEvents, setEvents, eventIndex};
+  return { eventLoaded, getEvents, setEvents, eventIndex, allowChange, targetIndex };
 })

@@ -1,7 +1,9 @@
 <template>
   <FrameWrapper>
     <DeptDetailSwitch></DeptDetailSwitch>
-    <canvas class="vfx" ref="vfx" :width="width" :height="height"></canvas>
+    <div class="vfx-contain">
+      <canvas class="vfx" ref="vfx" :width="width" :height="height"></canvas>
+    </div>
     <div class="background"></div>
   </FrameWrapper>
 </template>
@@ -24,17 +26,15 @@ function resizeHandler() {
   if (!resizing) {
     resizing = true
     setTimeout(() => {
-      resizing = false
-      height.value = window.innerHeight
-      width.value = window.innerWidth
-      updateWindowSize()
+      resizing = false;
+      updateWindowSize();
     }, 250);
   }
 }
 
 onMounted(() => {
-  height.value = window.innerHeight
-  width.value = window.innerWidth
+  height.value = 1080;
+  width.value = 1920;
   window.addEventListener("resize", resizeHandler)
   startAnimation(canvas.value as HTMLCanvasElement)
 })
@@ -48,10 +48,24 @@ onUnmounted(() => {
 
 <style scoped>
 
-canvas.vfx {
+div.vfx-contain {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  container-type: size;
   pointer-events: none;
+  height: 100%;
+  width: 100%;
   z-index: -1;
+}
+
+canvas.vfx {
+  position: relative;
+  pointer-events: none;
+  width: 100cqmax;
+  height: 56.25cqmax;
 }
 
 div.background {
