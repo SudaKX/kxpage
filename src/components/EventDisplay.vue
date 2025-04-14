@@ -115,7 +115,7 @@ async function indexChangeHandler(index: number): Promise<void> {
   if (event.imageHash) {
     if (!imageDisplay?.hasImageData(event.imageHash)) {
       try {
-        const response = await axios.get("http://localhost:8000/api/images", {
+        const response = await axios.get("/api/images", {
           params: {h: event.imageHash},
           timeout: 10000, 
           headers: {
