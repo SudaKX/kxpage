@@ -1,6 +1,6 @@
 <template>
   <div class="contain">
-    <div class="list">
+    <div class="list animate">
       <div class="scroll-box" ref="sbBox">
         <div class="scroll-bar" ref="sbInner"></div>
       </div>
@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div class="swiper">
+    <div class="swiper animate">
       <div class="display">
         <div class="image-container">
           <div class="image-err" v-if="errorImage">
@@ -39,6 +39,8 @@
         </div>
       </div>
     </div>
+    <div class="bg-mask"></div>
+    <div class="event-bg"></div>
   </div>
 </template>
 
@@ -224,6 +226,27 @@ div.contain {
   margin: auto;
   height: 100%;
   width: 100%;
+}
+
+div.event-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--kx-dark-white0-dark);
+  mask-image: url("../assets/images/cutMask.png");
+  mask-mode: luminance;
+  mask-size: cover;
+  mask-position: center;
+  z-index: -3;
+}
+
+div.bg-mask {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--kx-dark-black0);
+  mask-image: radial-gradient(rgba(0,0,0,0.6) 20%, rgba(0,0,0,1));
+  z-index: -2;
 }
 
 div.swiper {

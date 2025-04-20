@@ -155,6 +155,17 @@ div.loading {
   }
 }
 
+div.forward-enter-from :deep(div.animate) {
+  opacity: 0;
+}
+div.rewind-enter-from :deep(div.animate) {
+  opacity: 0;
+}
+div.forward-enter-active :deep(div.animate),
+div.rewind-enter-active :deep(div.animate) {
+  transition: opacity 500ms ease 700ms;
+}
+
 @keyframes icon-scaler {
   0%, 80%, 100% {
     scale: 1;
