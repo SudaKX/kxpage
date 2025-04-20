@@ -90,13 +90,21 @@ const cancelItemsLoad = watch(items, (value) => {
     );
     if (eventIndex.value >= 0) {
       const imageHash = getEvents()[eventIndex.value].imageHash;
+      const eventHref = getEvents()[eventIndex.value].eventHref;
       if (imageHash) {
         const success = imageDisplay?.changeImage(imageHash);
         if (!success) {
           errorImage.value = true;
           errorTitle.value = "Error: No content.";
-          errorContent.value = `No content data for ${imageHash}`;
+          errorContent.value = `Image data for ${imageHash} is empty.`;
         }
+      } else {
+        errorImage.value = true;
+        errorTitle.value = "Error: No content.";
+        errorContent.value = "No image data for current event."
+      }
+      if (!eventHref) {
+        buttonInactive.value = true;
       }
     }
     cancelItemsLoad();
@@ -155,7 +163,7 @@ async function indexChangeHandler(index: number): Promise<void> {
   } else {
     fail = true;
     errorTitle.value = "Error: No content.";
-    errorContent.value = "imageHash is not available."
+    errorContent.value = "No image data for current event."
   }
 
   lastTimeoutNumber = setTimeout(() => {
