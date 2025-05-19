@@ -297,7 +297,7 @@ div.swiper {
         width: 100%;
         height: 100%;
         background-color: var(--kx-dark-neglect-light);
-        translate: 0 -100%;
+        translate: 0 -110%;
         z-index: 2;
 
         h1.mask-texts {
