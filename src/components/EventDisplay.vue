@@ -39,8 +39,12 @@
         </div>
       </div>
     </div>
-    <div class="bg-mask"></div>
-    <div class="event-bg"></div>
+    <div class="bg-text">
+      Events
+    </div>
+    <div class="bg-block bg-block-1 animate-bg"></div>
+    <div class="bg-block bg-block-2 animate-bg"></div>
+    <div class="event-bg" ></div>
   </div>
 </template>
 
@@ -217,6 +221,10 @@ function jump(): void {
 
 <style scoped>
 
+div.animate {
+  transition: opacity 500ms ease 1750ms;
+}
+
 div.contain {
   position: absolute;
   display: flex;
@@ -232,20 +240,46 @@ div.event-bg {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: var(--kx-dark-white0-dark);
+  background-color: var(--kx-dark-neglect-light-half);
   mask-image: url("../assets/images/cutMask.png");
   mask-mode: luminance;
   mask-size: cover;
   mask-position: center;
-  z-index: -3;
+  z-index: -4;
 }
 
-div.bg-mask {
+div.bg-text {
+  pointer-events: none;
   position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: var(--kx-dark-black0);
-  mask-image: radial-gradient(rgba(0,0,0,0.6) 20%, rgba(0,0,0,1));
+  color: var(--kx-dark-neglect-light);
+  right: 3%;
+  bottom: 3%;
+  z-index: -3;
+  font-size: 6vmax;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+
+div.bg-block {
+  position: absolute;
+  height: 200%;
+  width: 200%;
+  box-shadow: 0px 0px 10px black;
+  backdrop-filter: blur(3px) brightness(50%);
+  transition: 
+    translate 1.5s ease 250ms,
+    rotate 1s ease 750ms;
+}
+
+div.bg-block-1 {
+  translate: 30% -60%;
+  rotate: 15deg;
+  z-index: -1;
+}
+
+div.bg-block-2 {
+  translate: -29% 58%;
+  rotate: 40deg;
   z-index: -2;
 }
 
@@ -339,7 +373,6 @@ div.swiper {
       transition: opacity 500ms ease;
       font-size: 2cqmin;
       color: var(--kx-dark-white0-3qua);
-      font-weight: bold;
       padding: 2cqmin;
       transition: color 500ms ease;
     }
