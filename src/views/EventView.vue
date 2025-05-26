@@ -1,8 +1,8 @@
 <template>
   <FrameWrapper>
-    <Transition name="load" :duration="400" mode="out-in">
+    <Transition name="load" :duration="{leave:400, enter:2000}" mode="out-in">
       <EventDisplay v-if="eventLoaded"></EventDisplay>
-      <div v-else-if="fetchFailed" class="fail">
+      <div v-else-if="fetchFailed" class="fail fade">
         <div class="err-icon">:(</div>
         <div class="err-title">加载该页面时遇到错误</div>
         <div class="err-content">
@@ -12,7 +12,7 @@
           打开控制台以查看详细错误信息
         </div>
       </div>
-      <div v-else class="loading">
+      <div v-else class="loading fade">
         <div class="icon">
           <div class="scaler">
             <div class="tl block"></div>
@@ -164,9 +164,14 @@ div.forward-enter-from :deep(div.animate-bg) {
   rotate: 0deg;
 }
 
-div.forward-enter-from :deep(div.animate-bg-text) {
-  left: 0%;
-  opacity: 0;
+div.forward-enter-active :deep(div.animate-bg) {
+  transition: 
+    translate 1.5s ease 250ms,
+    rotate 1s ease 750ms;
+}
+
+div.forward-enter-active :deep(div.animate) {
+  transition: opacity 500ms ease 1500ms;
 }
 
 @keyframes icon-scaler {
@@ -303,12 +308,33 @@ div.fail {
   transition: opacity 200ms ease-in-out;
 }
 
-.load-enter-from {
-  opacity: 0;
-}
-
 .load-leave-to {
   opacity: 0;
 }
+
+div.load-enter-from.fade{
+  opacity: 0;
+}
+
+div.load-enter-from :deep(div.animate) {
+  opacity: 0;
+}
+
+div.load-enter-from :deep(div.animate-bg) {
+  opacity: 1;
+  translate: 0% 0%;
+  rotate: 0deg;
+}
+
+div.load-enter-active :deep(div.animate-bg) {
+  transition: 
+    translate 1.5s ease 250ms,
+    rotate 1s ease 750ms;
+}
+
+div.load-enter-active :deep(div.animate) {
+  transition: opacity 500ms ease 1500ms;
+}
+
 
 </style>

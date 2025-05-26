@@ -40,7 +40,7 @@ onMounted(async () => {
     <RouterView v-slot="{ Component, route }">
       <Transition
         :name="(route.meta.transition as string) || 'forward'"
-        :duration="1000"
+        :duration="2000"
       >
         <component :is="Component"/>
       </Transition>

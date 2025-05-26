@@ -39,9 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-text">
-      Events
-    </div>
+    <div class="bg-text">Events</div>
     <div class="bg-block bg-block-1 animate-bg"></div>
     <div class="bg-block bg-block-2 animate-bg"></div>
     <div class="event-bg" ></div>
@@ -221,10 +219,6 @@ function jump(): void {
 
 <style scoped>
 
-div.animate {
-  transition: opacity 500ms ease 1750ms;
-}
-
 div.contain {
   position: absolute;
   display: flex;
@@ -266,9 +260,6 @@ div.bg-block {
   width: 200%;
   box-shadow: 0px 0px 10px black;
   backdrop-filter: blur(3px) brightness(50%);
-  transition: 
-    translate 1.5s ease 250ms,
-    rotate 1s ease 750ms;
 }
 
 div.bg-block-1 {
