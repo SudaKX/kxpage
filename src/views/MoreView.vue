@@ -84,9 +84,8 @@ const contributors: Array<AvatarDescription> = [
     position: absolute;
     bottom: -1%;
     width: 102%;
-    height: 18%;
+    height: 14%;
 
-    border: 1px solid var(--kx-dark-white0-3qua);
     overflow: hidden;
 
     z-index: 3;
@@ -94,7 +93,7 @@ const contributors: Array<AvatarDescription> = [
     div.text {
       position: absolute;
       left: 5%;
-      font-size: 9vmin;
+      font-size: 8vmin;
       font-family: 'Times New Roman', Times, serif;
       font-weight: bold;
       color: var(--kx-dark-neglect);
@@ -109,7 +108,7 @@ const contributors: Array<AvatarDescription> = [
     width: 100%;
     bottom: 0%;
     background-color: var(--kx-dark-black0);
-    mask-image: linear-gradient(rgba(0,0,0,0), var(--kx-dark-black0) 50%);
+    mask-image: linear-gradient(rgba(0,0,0,0), var(--kx-dark-black0) 60%);
     mask-mode: alpha;
     z-index: 2;
   }
@@ -130,7 +129,7 @@ const contributors: Array<AvatarDescription> = [
     div.section {
       position: relative;
       height: 90%;
-      width: 22%;
+      width: 20%;
       background-color: transparent;
       overflow: hidden;
 
@@ -234,7 +233,7 @@ const contributors: Array<AvatarDescription> = [
         width: 100%;
         mask-image: linear-gradient(
           rgba(0,0,0,0.0) 50%,
-          rgba(0,0,0,0.95)
+          rgba(0,0,0,1.0)
         );
         mask-mode: alpha;
 
@@ -245,7 +244,7 @@ const contributors: Array<AvatarDescription> = [
       div.title {
         position: absolute;
         pointer-events: none;
-        bottom: 18%;
+        bottom: 16%;
         left: 0%;
         width: 100%;
         opacity: 0;
