@@ -158,6 +158,9 @@ div.loading {
 div.forward-enter-from :deep(div.animate) {
   opacity: 0;
 }
+div.rewind-enter-from :deep(div.animate) {
+  opacity: 0;
+}
 
 div.forward-enter-from :deep(div.animate-bg) {
   translate: 0% 0%;
@@ -172,6 +175,10 @@ div.forward-enter-active :deep(div.animate-bg) {
 
 div.forward-enter-active :deep(div.animate) {
   transition: opacity 500ms ease 1500ms;
+}
+
+div.rewind-enter-active :deep(div.animate) {
+  transition: opacity 500ms ease 500ms;
 }
 
 @keyframes icon-scaler {
