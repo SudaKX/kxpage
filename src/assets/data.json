@@ -69,5 +69,45 @@
       "scaleX": 0.35,
       "scaleY": 0.35
     }
+  ],
+  "moreCards": [
+    {
+      "name": "wechat",
+      "color": "green",
+      "title": "微信公众号",
+      "subtitle": "请关注我们的微信公众号吧！"
+    },
+    {
+      "name": "bilibili",
+      "color": "pink",
+      "title": "Bilibili",
+      "subtitle": "请一键三连吧！"
+    },
+    {
+      "name": "contribute",
+      "color": "skyblue",
+      "title": "贡献者",
+      "subtitle": "多亏了他们的付出，网站才能从无到有，并得到持续维护。"
+    },
+    {
+      "name": "repo",
+      "color": "orange",
+      "title": "网站仓库",
+      "subtitle": "对网站的效果实现感兴趣吗？请前往我们的仓库看看。"
+    }
+  ],
+  "contributors": [
+    {
+      "path": "darksky.jpg",
+      "href": "https://github.com/DarkskyX15"
+    },
+    {
+      "path": "rei.jpg",
+      "href": "https://github.com/Lazist-09"
+    },
+    {
+      "path": "silver_akatoki.png",
+      "href": "https://github.com/SilverAkatoki"
+    }
   ]
 }

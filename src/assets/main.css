@@ -9,6 +9,7 @@
     --kx-dark-white0-3qua: rgba(255, 255, 255, 0.75);
     --kx-dark-white0: rgba(255, 255, 255);
     --kx-dark-white0-dark: rgb(177, 177, 177);
+    --kx-dark-white0-weak: rgb(220, 220, 220);
 
     --kx-dark-neglect: rgb(60, 60, 60);
     --kx-dark-neglect-half: rgba(60, 60, 60, 0.5);
@@ -16,7 +17,10 @@
     --kx-dark-neglect-light-half: rgba(99, 99, 99, 0.5);
 
     --kx-dark-activate: rgb(0, 195, 255);
+    --kx-dark-activate-weak: rgb(0, 160, 209);
     --kx-dark-activate-em: rgb(57, 209, 255);
     --kx-dark-activate-dark: rgb(39, 132, 161);
     --kx-dark-activate-em-half: rgba(57, 209, 255, 0.5);
+
+    --kx-dark-pink: #FB7299
 }
