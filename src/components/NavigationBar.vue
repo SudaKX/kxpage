@@ -1,8 +1,6 @@
 <template>
   <nav class="nav-bar">
-    <NavigationButton
-      v-for="(item, index) in routeButtonData"
-      v-bind="item" :key="index"/>
+    <NavigationButton v-for="(item, index) in routeButtonData" v-bind="item" :key="index" />
   </nav>
   <img class="logo" src="@/assets/images/kx_icon.png">
 </template>
@@ -33,5 +31,3 @@ import { routeButtonData } from '@/router/index'
   padding-left: 50px;
 }
 </style>
-
-
