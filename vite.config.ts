@@ -11,7 +11,7 @@ export default defineConfig({
     open: true,
     port: 5173,
     proxy: {
-      "/api": "http://localhost:8000"
+      "/kx-api/v1": "http://localhost:8000"
     }
   },
   plugins: [

@@ -35,6 +35,7 @@ import { storeToRefs } from 'pinia';
 import { events } from '@/proto/compiled';
 import axios from 'axios';
 import EventDisplay from '@/components/EventDisplay.vue';
+import { eventUrl } from '@/package/configs';
 
 const { eventLoaded } = storeToRefs(useEventData());
 const { setEvents } = useEventData();
@@ -48,7 +49,7 @@ onMounted(() => {
       timeoutNumber = undefined;
       if (!eventLoaded.value) {
         const response = await axios.get(
-          "/api/events", {
+          eventUrl, {
             timeout: 10000, 
             headers: {
               'X-Requested-With': 'XMLHttpRequest',

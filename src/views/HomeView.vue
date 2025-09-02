@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import FrameWrapper from '@/components/FrameWrapper.vue';
+
+function jumpVolunteer(): void {
+  window.open("/volunteer");
+}
+
 </script>
 
 <template>
@@ -7,13 +12,19 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
     <div class="glass g-top"></div>
     <div class="glass g-down"></div>
     <div class="container">
-      <div class="texts">
-        <div>
-          <h2>苏州大学</h2>
-          <h3>计算机科学与技术学院</h3>
+      <div class="title-container">
+        <div class="texts">
+          <div class="left-part">
+            <h2>苏州大学</h2>
+            <h3>计算机科学与技术学院</h3>
+          </div>
+          <div class="h-sep"></div>
+          <h1>学生科技协会</h1>
         </div>
-        <div class="h-sep"></div>
-        <h1>学生科技协会</h1>
+        <div class="jump-button" @click="jumpVolunteer">
+          <div class="button-text">前往志愿者系统</div>
+          <img class="button-icon" src="/src/assets/images/jump-icon.png" alt="jump-icon" draggable="false"/>
+        </div>
       </div>
       <div class="background"></div>
     </div>
@@ -24,7 +35,6 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 
 .container {
   position: absolute;
-  pointer-events: none;
   top: 0%;
   left: 0%;
   height: 100%;
@@ -34,30 +44,84 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 
   transition:
     scale 1.0s ease,
-    opacity 1.0s ease;
+    opacity 1.0s ease,
+    transform 1.0s ease;
+}
+
+div.title-container {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  >div.jump-button {
+    position: relative;
+    cursor: pointer;
+
+    margin-top: 15px;
+    padding: 5px 15px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-image: linear-gradient(90deg, var(--kx-dark-activate) 70%, transparent);
+    background-repeat: no-repeat;
+    background-size: 0 auto;
+    background-position: left;
+
+    transition: background-size 300ms ease;
+
+    >div.button-text {
+      position: relative;
+
+      font-size: 2vmin;
+      margin-right: 10px;
+      color: var(--kx-dark-white0);
+    }
+
+    >img.button-icon {
+      position: relative;
+
+      width: 2vmin;
+      height: 2vmin;
+      margin-right: 8vmin;
+
+      object-position: center;
+      object-fit: contain;
+    }
+  }
+
+  >div.jump-button:hover {
+    background-size: 100% auto;
+  }
 }
 
 .texts {
-  position: absolute;
-  top: 40%;
-  height: 12%;
-  left: 10%;
+  position: relative;
+
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   padding: 15px;
   color: white;
 
-  transition: 
-    transform 1.0s ease,
-    opacity 1.0s ease;
+  >div.left-part {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .h-sep {
   position: relative;
   flex: none;
   background-color: var(--kx-dark-activate);
-  height: 100%;
   width: 0.5vmax;
   margin-left: 1vmax;
   margin-right: 1vmax;
@@ -96,6 +160,7 @@ import FrameWrapper from '@/components/FrameWrapper.vue';
 }
 
 h1 {
+  cursor: default;
   text-align: left;
   position: relative;
   display: block;
@@ -104,10 +169,12 @@ h1 {
 }
 
 h2 {
+  cursor: default;
   font-size: 1.5vmax;
 }
 
 h3 {
+  cursor: default;
   font-size: 1vmax;
 }
 
@@ -136,13 +203,9 @@ h3 {
 
 /* Forward Enter */
 
-.forward-enter-from .texts {
+.forward-enter-from .container {
   opacity: 0;
   transform: translate(-20vw, 0);
-}
-
-.forward-enter-from .svg-deco {
-  opacity: 0;
 }
 
 /* Forward Leave */
@@ -156,10 +219,6 @@ h3 {
 .rewind-enter-from .container {
   opacity: 0.5;
   scale: 1.2 1.2;
-}
-
-.rewind-enter-from .svg-deco {
-  opacity: 0;
 }
 
 </style>

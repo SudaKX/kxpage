@@ -54,6 +54,7 @@ import { VerticalScrollBar } from '@/package/scrollBar';
 import { ImageDisplayCanvas } from '@/package/imageDisplay';
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
+import { imageUrl } from '@/package/configs';
 
 interface ListItemSpec {
   eventTime: string;
@@ -127,7 +128,7 @@ async function indexChangeHandler(index: number): Promise<void> {
   if (event.imageHash) {
     if (!imageDisplay?.hasImageData(event.imageHash)) {
       try {
-        const response = await axios.get("/api/images", {
+        const response = await axios.get(imageUrl, {
           params: {h: event.imageHash},
           timeout: 10000, 
           headers: {
