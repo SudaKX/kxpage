@@ -1,0 +1,65 @@
+syntax = "proto3";  // 使用proto3语法
+
+package events;  // 定义包名
+
+// 定义EventSpec消息
+message EventSpec {
+    string eventUUID = 1;          // 事件唯一标识符
+    string eventTitle = 2;
+    string eventDescription = 3;   // 事件描述
+    string eventHref = 4;          // 事件链接
+    string eventTime = 5;
+    string imageHash = 6;          // 可选的图片哈希值
+}
+
+message EventList {
+    repeated EventSpec events = 1;   // EventSpec 的列表
+}
+
+// 添加Event
+
+message EventPost {
+    string token = 1;
+    repeated EventSpec events = 2;
+}
+
+// 删除Event
+
+message EventDelete {
+    string token = 1;
+    repeated string uuids = 2;
+}
+
+// 修改Event
+
+message EventUpdate {
+    string token = 1;
+    EventSpec event = 2;
+}
+
+// 纯Token，仅用于get_storage_info
+
+message AdminToken {
+    string token = 1;
+}
+
+message StorageInfo {
+    uint64 size = 1;
+    uint32 count = 2;
+    repeated string files = 3;
+}
+
+message ImageUpload {
+    string token = 3;
+    string filename = 1;
+    bytes image = 2;
+}
+
+message ImageDelete {
+    string token = 1;
+    string filename = 2;
+}
+
+message StateResponse {
+    string message = 1;
+}

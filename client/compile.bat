@@ -1,0 +1,1 @@
+nuitka --standalone --enable-plugin=tk-inter --output-dir=out --lto=yes .\kx_console.py

@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  # 1. MySQL 数据库服务
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      # 使用 .env 文件中的变量
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      # 数据持久化，防止容器重启后数据丢失
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # 2. FastAPI 后端服务
+  backend:
+    build:
+      context: ./backend  # 指定 Dockerfile 所在的目录
+    image: kxpage-backend:0.1.4
+    container_name: kxpage_backend
+    restart: always
+    ports:
+      - "3514:3514"
+    env_file:
+      - ./.env
+    environment:
+      # 将数据库连接信息传递给 FastAPI 应用
+      DATABASE_HOST: "db"
+      PUBLIC_PREFIX: "${PUBLIC_PREFIX}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+    depends_on:
+      - db  # 确保 db 服务先于 backend 启动
+    networks:
+      - app-network
+
+# 定义网络和数据卷
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
