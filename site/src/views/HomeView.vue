@@ -23,7 +23,7 @@ function jumpVolunteer(): void {
         </div>
         <div class="jump-button" @click="jumpVolunteer">
           <div class="button-text">前往志愿者系统</div>
-          <img class="button-icon" src="/src/assets/images/jump-icon.png" alt="jump-icon" draggable="false"/>
+          <img class="button-icon" src="/src/assets/images/jump-icon.png" alt="jump-icon" draggable="false" />
         </div>
       </div>
       <div class="background"></div>
@@ -32,7 +32,6 @@ function jumpVolunteer(): void {
 </template>
 
 <style lang="css" scoped>
-
 .container {
   position: absolute;
   top: 0%;
@@ -98,6 +97,19 @@ div.title-container {
 
   >div.jump-button:hover {
     background-size: 100% auto;
+
+    >div.button-text {
+      color: var(--kx-dark-white0-bright);
+      transition-property: color;
+      transition-duration: 0.5s;
+
+    }
+
+    >img.button-icon {
+      transition-property: filter;
+      transition-duration: 0.5s;
+      filter: invert(100%);
+    }
   }
 }
 
@@ -134,7 +146,7 @@ div.title-container {
   height: 100%;
   width: 115%;
   background-position: center;
-  background-image: 
+  background-image:
     radial-gradient(closest-side, var(--kx-dark-activate), transparent);
   background-repeat: no-repeat;
 
@@ -179,22 +191,28 @@ h3 {
 }
 
 @keyframes movement {
-  0%, 100% {
+
+  0%,
+  100% {
     background-size: 50vmax 50vmax;
     opacity: 0;
   }
+
   25% {
     background-size: 70vmax 70vmax;
     opacity: 0.8;
   }
+
   50% {
     background-size: 100vmax 100vmax;
     opacity: 1.0;
   }
+
   60% {
     background-size: 105vmax 105vmax;
     opacity: 1.0;
   }
+
   85% {
     background-size: 80vmax 80vmax;
     opacity: 0;
@@ -220,5 +238,4 @@ h3 {
   opacity: 0.5;
   scale: 1.2 1.2;
 }
-
 </style>

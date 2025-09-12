@@ -27,7 +27,6 @@
         </div>
       </MoreSectionCard>
       <MoreSectionCard v-bind="moreCardsDescription[3]" style="transition-delay: 1.3s;">
-        <!-- 在这里干活 -->
         <div class="repos-container">
           <div class="repo-container">
             <div class="repo-item-container">
@@ -38,14 +37,18 @@
                     d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z">
                   </path>
                 </svg>
-                <p class="repo-title" @click="jumpGithubFrontend()">kxpage</p>
+                <p class="repo-title" @click="jumpGithubRepo()">kxpage</p>
                 <div class="repo-subtitle-container">
-                  <p class="repo-subtitle">前端</p>
+                  <p class="repo-subtitle">前端 & 后端</p>
                 </div>
               </div>
-              <div class="repo-description">测试</div>
+              <div class="repo-description">苏州大学计算机学院科技协会官网</div>
               <div class="repo-extra-info-container">
                 <div class="repo-languages">
+                  <span class="repo-language">
+                    <span class="repo-language-color-tip repo-language-python"></span>
+                    Python
+                  </span>
                   <span class="repo-language">
                     <span class="repo-language-color-tip repo-language-ts"></span>
                     TypeScript
@@ -53,31 +56,6 @@
                   <span class="repo-language">
                     <span class="repo-language-color-tip repo-language-vue"></span>
                     Vue
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="repo-container">
-            <div class="repo-item-container">
-              <div class="repo-title-container">
-                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                  data-view-component="true">
-                  <path
-                    d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z">
-                  </path>
-                </svg>
-                <p class="repo-title" @click="jumpGithubBackend()">kxpage-backend</p>
-                <div class="repo-subtitle-container">
-                  <p class="repo-subtitle">后端</p>
-                </div>
-              </div>
-              <div class="repo-description">测试</div>
-              <div class="repo-extra-info-container">
-                <div class="repo-languages">
-                  <span class="repo-language">
-                    <span class="repo-language-color-tip repo-language-python"></span>
-                    Python
                   </span>
                 </div>
               </div>
@@ -103,11 +81,7 @@ import ContributeAvatar from '@/components/ContributeAvatar.vue';
 import { moreCardsDescription, contributorAvatars } from '@/package/staticData';
 import { onMounted, onUnmounted, useTemplateRef, watchEffect, type WatchHandle } from 'vue';
 
-function jumpGithubBackend(): void {
-  window.open("https://github.com/SudaKX/kxpage-backend");
-}
-
-function jumpGithubFrontend(): void {
+function jumpGithubRepo(): void {
   window.open("https://github.com/SudaKX/kxpage");
 }
 

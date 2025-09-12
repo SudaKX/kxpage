@@ -2,7 +2,7 @@
   <nav class="nav-bar">
     <NavigationButton v-for="(item, index) in routeButtonData" v-bind="item" :key="index" />
   </nav>
-  <img class="logo" src="@/assets/images/kx_icon.png">
+  <img class="logo" src="@/assets/images/kx_icon.png" @click="$router.replace('/')">
 </template>
 
 <script setup lang="ts">
