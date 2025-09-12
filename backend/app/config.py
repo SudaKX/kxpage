@@ -2,7 +2,7 @@
 import os
 import hashlib
 
-MYSQL_HOST = os.getenv("DATABASE_HOST")
+MYSQL_HOST = os.getenv("DATABASE_HOST") or "127.0.0.1"
 MYSQL_PORT = 3306
 MYSQL_AUTH = "root:password"
 
@@ -17,3 +17,4 @@ def get_admin_hash() -> str:
     return h.hexdigest()
 
 ADMIN_HASH = get_admin_hash()
+os.makedirs(IMAGE_STORE, exist_ok=True)

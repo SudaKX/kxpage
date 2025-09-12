@@ -25,4 +25,4 @@ EXPOSE 8000
 # 6. 定义启动命令
 # 当容器启动时，执行此命令来运行 FastAPI 应用。
 # --host 0.0.0.0 是必须的，它让应用可以从容器外部访问。
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3514"]
+CMD ["python3", "main.py"]

@@ -19,12 +19,12 @@ services:
   # 2. FastAPI 后端服务
   backend:
     build:
-      context: ./backend  # 指定 Dockerfile 所在的目录
-    image: kxpage-backend:0.1.4
+      context: ../backend  # 指定 Dockerfile 所在的目录
+    image: kxpage-backend:0.1.6
     container_name: kxpage_backend
     restart: always
     ports:
-      - "3514:3514"
+      - "${USE_PORT}:8000"
     env_file:
       - ./.env
     environment:
