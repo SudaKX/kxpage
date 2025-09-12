@@ -93,6 +93,9 @@ f"""总大小：{response['size'] / 1048576:.2f} MB
             if response:
                 self.time_label.text = f"截至 {response[-1]['time']}"
                 self._current_time = response[-1]['time']
+            else:
+                self.time_label.text = "截至 --/--/--"
+                self._current_time = None
             self.status_bar.text = f"事件更新完毕，新增条数：{len(response)}。"
 
         def on_exception(e: Exception):

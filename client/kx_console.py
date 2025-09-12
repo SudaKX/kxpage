@@ -1,7 +1,7 @@
 
 from fasttk import *
-from client import export
+from client import W_Login
 
 if __name__ == '__main__':
-    ftk.main_window(export, title="KX Console", size=(1200, 650))
+    ftk.main_window(W_Login, title="KX Console", size=(1200, 650))
     ftk.mainloop()
