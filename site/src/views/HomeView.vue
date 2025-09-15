@@ -73,7 +73,8 @@ div.title-container {
     background-size: 0 auto;
     background-position: left;
 
-    transition: background-size 300ms ease;
+    transition:
+      background-size 300ms ease .1s;
 
     >div.button-text {
       position: relative;
@@ -81,6 +82,8 @@ div.title-container {
       font-size: 2vmin;
       margin-right: 10px;
       color: var(--kx-dark-white0);
+
+      transition: color 300ms ease .1s;
     }
 
     >img.button-icon {
@@ -92,6 +95,8 @@ div.title-container {
 
       object-position: center;
       object-fit: contain;
+
+      transition: filter 300ms ease .1s;
     }
   }
 
@@ -100,14 +105,9 @@ div.title-container {
 
     >div.button-text {
       color: var(--kx-dark-white0-bright);
-      transition-property: color;
-      transition-duration: 0.5s;
-
     }
 
     >img.button-icon {
-      transition-property: filter;
-      transition-duration: 0.5s;
       filter: invert(100%);
     }
   }
